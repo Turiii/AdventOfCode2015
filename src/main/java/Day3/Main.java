@@ -32,8 +32,9 @@ public class Main {
         List<Character> moves = new ArrayList<>();
         HashMap<Point, Integer> hashMap = new HashMap<>();
 
-        Point actualPosition = new Point(0, 0);
-        hashMap.put(actualPosition, 1);
+        Point santaPosition = new Point(0, 0);
+        Point roboSantaPosition = new Point(0,0);
+        hashMap.put(santaPosition, 1);
 
         while ((c = reader.read()) != -1) {
             char character = (char) c;
@@ -41,10 +42,21 @@ public class Main {
         }
         System.out.println("Moves: " + moves);
 
+        int counter = 1;
+
         for (Character move :
                 moves) {
-            Point newPosition = move(move, actualPosition);
-            actualPosition = newPosition;
+            counter++;
+            Point newPosition;
+            if(counter % 2 == 0){
+                //robo-santa move
+                newPosition = move(move, roboSantaPosition);
+                roboSantaPosition = newPosition;
+            }else{
+                //santa move
+                newPosition = move(move, santaPosition);
+                santaPosition = newPosition;
+            }
             if (!hashMap.containsKey(newPosition)) {
                 hashMap.put(newPosition, 1);
             } else {
